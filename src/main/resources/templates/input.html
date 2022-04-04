@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add New Customer</title>
+</head>
+<body>
+	<form th:object="${newCustomer}" th:action="@{/update/{id}(id=${newCustomer.id})}" method='POST'>
+		First Name: <input name="firstName" size="15" th:field="*{firstName}"><br/>
+		Last Name: <input name="lastName" size="15" th:field="*{lastName}"><br/>
+		Diner Preference (to-go/dine-in): <input name="dinerPreference" size="15" th:field="*{dinerPreference}"><br/>
+		Drink Order:<input name="order.drink" size="15" th:field="*{order.drink}"><br/>
+		Food Order:	<input name="order.food" size="15" th:field="*{order.food}"><br/>
+		
+		<input name="submit" type="submit" value="submit" />
+	</form>
+	<a href="viewAll">View All Customers</a>
+</body>
+</html>
