@@ -1,19 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-<title>Add New Customer</title>
-</head>
-<body>
-	<form th:object="${newCustomer}" th:action="@{/update/{id}(id=${newCustomer.id})}" method='POST'>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Add New Customer</title>
+		<script type = "text/javascript">
+			function validate(){
+				if(document.form.firstName.value == "") {
+					alert("You did not enter your first name. Please do so now.");
+					document.form.firstName.focus();
+					return false;
+				}
+				if(document.form.lastName.value == "") {
+					alert("You did not enter your last name. Please do so now.");
+					document.form.lastName.focus();
+					return false;
+				}
+				if(document.form.dinerPrefernce.value == "") {
+					alert("You did not enter your dining preference. Please do so now.");
+					document.form.dinerPreference.focus();
+					return false;
+				}
+				let drink = document.forms["form"]["order.drink"].value;
+				if(drink == "") {
+					alert("You did not enter your drink item. Please select an item, or specify NONE.");
+					document.form.order.drink.focus();
+					return false;
+				}
+				let food = document.forms["form"]["order.food"].value;
+				if(food == "") {
+					alert("You did not enter your food item. Please select an item, or specify NONE.");
+					document.form.order.food.focus();
+					return false;
+				}
+				return (true);
+			}
+		</script>
+	</head>
+	<body>
+		<form th:object="${newCustomer}" th:action="@{/update/{id}(id=${newCustomer.id})}" name = "form" onsubmit = "return(validate())" method='POST'>
 		First Name: <input name="firstName" size="15" th:field="*{firstName}"><br/>
 		Last Name: <input name="lastName" size="15" th:field="*{lastName}"><br/>
-		Diner Preference (to-go/dine-in): <input name="dinerPreference" size="15" th:field="*{dinerPreference}"><br/>
-		Drink Order:<input name="order.drink" size="15" th:field="*{order.drink}"><br/>
-		Food Order:	<input name="order.food" size="15" th:field="*{order.food}"><br/>
+		Diner Preference: <select name="dinerPreference" th:field="*{dinerPreference}" required>
+			<option value = "" selected>Choose an option:</option>
+			<option value = "to-go">To-Go</option>
+			<option value = "dine-in">Dine-In</option></select><br/>
+		Drink Order: <select name="order.drink" th:field="*{order.drink}" required>
+			<option value = "" selected>Choose an option:</option>
+			<option value = "NONE">None</option>
+			<option value = "Java">Java</option>
+			<option value = "Latte">Latte</option>
+			<option value = "Mocha">Mocha</option>
+			<option value = "Hot Chocolate">Hot Chocolate</option></select><br/>
+		Food Order:	<select name="order.food" th:field="*{order.food}" required>
+			<option value = "" selected>Choose an option:</option>
+			<option value = "NONE">None</option>
+			<option value = "Blueberry Muffin">Blueberry Muffin</option>
+			<option value = "Cranberry Orange Scone">Cranberry Orange Scone</option>
+			<option value = "Chocolate Chip Cookie">Chocolate Chip Cookie</option></select><br/>
 		
 		<input name="submit" type="submit" value="submit" />
-	</form>
-	<a href="viewAll">View All Customers</a>
-</body>
+		</form>
+		<a href="viewAll">View All Customers</a>
+	</body>
 </html>
